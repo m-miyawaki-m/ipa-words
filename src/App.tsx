@@ -4,6 +4,7 @@ import { useTerms } from './hooks/useTerms'
 import { useProgress } from './hooks/useProgress'
 import { TabNavigation } from './components/TabNavigation'
 import { WordListPage } from './pages/WordListPage'
+import { QuizPage } from './pages/QuizPage'
 import styles from './App.module.css'
 
 export default function App() {
@@ -21,7 +22,13 @@ export default function App() {
         {activeTab === 'list' && (
           <WordListPage terms={terms} categories={categories} progress={progress} />
         )}
-        {activeTab === 'quiz' && <div>出題（Task 10-12で実装）</div>}
+        {activeTab === 'quiz' && (
+          <QuizPage
+            terms={terms}
+            categories={categories}
+            onRecordAnswer={recordAnswer}
+          />
+        )}
         {activeTab === 'progress' && <div>進捗（Task 13で実装）</div>}
       </main>
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
