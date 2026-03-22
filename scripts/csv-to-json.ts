@@ -42,7 +42,7 @@ for (let i = 1; i < lines.length; i++) {
 
   terms.push({
     id: i,
-    url: parts[0],
+    url: 'AP',
     majorCategoryId: parts[1],
     minorCategoryId: parts[2],
     name: parts[3],
