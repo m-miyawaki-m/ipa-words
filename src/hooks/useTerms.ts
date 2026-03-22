@@ -4,12 +4,17 @@ import type { Term, Category } from '../types'
 export function useTerms() {
   const [terms, setTerms] = useState<Term[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     fetch(import.meta.env.BASE_URL + 'data/terms.json')
       .then(res => res.json())
       .then((data: Term[]) => {
         setTerms(data)
+        setLoading(false)
+      })
+      .catch(() => {
+        setError('データの読み込みに失敗しました')
         setLoading(false)
       })
   }, [])
@@ -37,5 +42,5 @@ export function useTerms() {
     )
   }, [terms])
 
-  return { terms, categories, loading }
+  return { terms, categories, loading, error }
 }

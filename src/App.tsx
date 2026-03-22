@@ -10,11 +10,15 @@ import styles from './App.module.css'
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabType>('list')
-  const { terms, categories, loading } = useTerms()
+  const { terms, categories, loading, error } = useTerms()
   const { progress, recordAnswer, resetProgress } = useProgress()
 
   if (loading) {
     return <div className={styles.loading}>読み込み中...</div>
+  }
+
+  if (error) {
+    return <div className={styles.loading}>{error}</div>
   }
 
   return (
