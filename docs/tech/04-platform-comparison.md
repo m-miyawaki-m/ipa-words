@@ -296,6 +296,138 @@ npx cap open android  # Android Studio
 - ゲーム → Unity / ネイティブ
 - WebView のパフォーマンスが許容できない → React Native / Flutter / ネイティブ
 
+### Capacitor vs React Native — 根本的なアーキテクチャの違い
+
+Capacitor と React Native はどちらも「JavaScriptでモバイルアプリを作る」技術だが、**仕組みが全く異なる**。直接の関係はなく、別系統の技術である。
+
+#### UI描画の仕組み
+
+```
+Capacitor（WebView方式）:
+  JS/HTML/CSS → WebView（ブラウザエンジン）→ 画面に描画
+  ボタンを書くと → HTMLの<button>がWebView内に表示される
+
+React Native（ネイティブブリッジ方式）:
+  JSX → JavaScriptエンジン → ネイティブUIコンポーネントに変換 → 画面に描画
+  ボタンを書くと → OSネイティブのボタン（iOS: UIButton, Android: Button）が表示される
+```
+
+#### 詳細比較
+
+| 比較軸 | Capacitor | React Native |
+|--------|-----------|-------------|
+| **UIの実体** | WebView内のHTML/CSS | **ネイティブUI**（OS本来の部品） |
+| **描画エンジン** | ブラウザエンジン（WebKit/Blink） | OS のUIフレームワーク |
+| **Web技術でUIを作るか** | **Yes**（HTML/CSS/JS） | No（JSXだがHTML/CSSではない） |
+| **組み合わせるフレームワーク** | React / Angular / Vue / 何でも | **Reactのみ** |
+| **既存Webコードの再利用** | **ほぼそのまま使える** | UIコードは全面書き直し |
+| **ネイティブAPIアクセス** | Capacitorプラグイン経由 | ネイティブモジュール経由 |
+| **見た目のネイティブ感** | Webアプリの見た目 | **OS標準の見た目** |
+| **操作感（スクロール等）** | WebViewの挙動 | **ネイティブの滑らかさ** |
+| **パフォーマンス** | WebView依存（中程度） | **ネイティブに近い** |
+| **学習コスト（Web経験者）** | **低い（Web知識そのまま）** | 中（React必須 + RN固有概念） |
+| **学習コスト（Java経験者）** | 中（Web技術を学ぶ必要） | 中（React + JSを学ぶ必要） |
+| **デバッグ** | Chrome DevTools（Web同様） | React Native Debugger / Flipper |
+| **ホットリロード** | Vite HMR（ブラウザ同様） | Fast Refresh |
+| **ストア配布** | 可能 | 可能 |
+
+#### コード比較: 同じボタンを作る場合
+
+**Capacitor（React + HTML/CSS）:**
+```tsx
+// 普通のWebアプリと同じコード
+function MyButton() {
+  return (
+    <button
+      style={{ padding: '12px 24px', borderRadius: '8px', background: '#333', color: '#fff' }}
+      onClick={() => console.log('clicked')}
+    >
+      タップ
+    </button>
+  )
+}
+```
+
+**React Native:**
+```tsx
+// HTML/CSSは使えない。RN独自のコンポーネントとStyleSheet
+import { TouchableOpacity, Text, StyleSheet } from 'react-native'
+
+function MyButton() {
+  return (
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => console.log('pressed')}
+    >
+      <Text style={styles.text}>タップ</Text>
+    </TouchableOpacity>
+  )
+}
+
+const styles = StyleSheet.create({
+  button: { padding: 12, borderRadius: 8, backgroundColor: '#333' },
+  text: { color: '#fff', textAlign: 'center' },
+})
+```
+
+> **注目点:** Capacitorでは `<button>`, `onClick`, CSS が使える（Webと同じ）。React Nativeでは `<TouchableOpacity>`, `onPress`, `StyleSheet` という独自API。**Webの知識が直接使えるかどうか**が最大の違い。
+
+#### ネイティブ機能の呼び出し比較
+
+**Capacitor:**
+```tsx
+import { Camera, CameraResultType } from '@capacitor/camera'
+
+async function takePhoto() {
+  const photo = await Camera.getPhoto({
+    resultType: CameraResultType.Uri,
+    source: CameraSource.Camera,
+  })
+  return photo.webPath
+}
+```
+
+**React Native:**
+```tsx
+import { launchCamera } from 'react-native-image-picker'
+
+async function takePhoto() {
+  const result = await launchCamera({ mediaType: 'photo' })
+  return result.assets?.[0]?.uri
+}
+```
+
+> どちらも簡潔だが、Capacitorは**Web APIに似たインターフェース**、React Nativeは**ネイティブAPIに近いインターフェース**を提供する。
+
+#### 本プロジェクトからの移行パス
+
+```
+現在: React + PWA（Webアプリ）
+│
+├─── Capacitor追加（コードほぼそのまま）
+│    作業量: 小（設定追加 + ビルド調整のみ）
+│    結果: WebView内で動くネイティブアプリ
+│    適する場合: ストア配布したい、一部ネイティブAPIが必要
+│
+└─── React Native で書き直し（UIコード全面変更）
+     作業量: 大（全画面のUIを書き直し）
+     結果: ネイティブUIで動くアプリ
+     適する場合: ネイティブの操作感が必須、WebView性能が不足
+```
+
+#### どちらを選ぶか — 判断基準
+
+| 状況 | 選択 | 理由 |
+|------|------|------|
+| 既存Webアプリをストア配布したい | **Capacitor** | コード変更最小 |
+| Web技術者チームでモバイル対応 | **Capacitor** | 学習コスト最小 |
+| ネイティブの操作感が重要（SNS、チャット等） | **React Native** | UIがネイティブ |
+| 複雑なアニメーション・ジェスチャー | **React Native** | ネイティブ描画 |
+| Web版は不要、モバイルのみ | **React Native** | Web資産の再利用メリットがない |
+| Web + モバイル両方必要 | **Capacitor** | 1つのコードベース |
+
+> **補足:** Capacitor は「Ionic Framework」とセットで語られることが多いが、**Ionic UI なしで Capacitor だけ使うことも可能**（本プロジェクトのようにReact + 独自CSSのまま Capacitor を追加できる）。2026年時点では Capacitor 単体での利用が増加傾向にある。
+
 ---
 
 ## 9. 本プロジェクト（IPA単語帳）の選択理由
