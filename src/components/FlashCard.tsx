@@ -29,6 +29,7 @@ export function FlashCard({ term, direction, onAnswer }: Props) {
         {!revealed && <div className={styles.hint}>タップで表示</div>}
         {revealed && (
           <div className={styles.answer}>
+            <p className={styles.answerCategory}>{term.category} › {term.subcategory}</p>
             {direction === 'term-to-meaning' ? (
               <p>{term.description}</p>
             ) : (

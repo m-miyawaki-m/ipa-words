@@ -46,6 +46,13 @@
   width: 100%;
 }
 
+.answerCategory {
+  font-size: 0.75rem;
+  color: #999999;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
 .answerName {
   font-size: 1.125rem;
   font-weight: 600;

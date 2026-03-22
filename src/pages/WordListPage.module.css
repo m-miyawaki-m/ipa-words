@@ -9,3 +9,32 @@
   color: #999999;
   margin-bottom: 8px;
 }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding-bottom: 8px;
+}
+
+.pageBtn {
+  padding: 10px 20px;
+  background: #333333;
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.pageBtn:disabled {
+  background: #e0e0e0;
+  color: #999999;
+  cursor: default;
+}
+
+.pageInfo {
+  font-size: 0.875rem;
+  color: #666666;
+}
