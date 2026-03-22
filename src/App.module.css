@@ -1,0 +1,16 @@
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.main {
+  padding: 16px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #999999;
+}
