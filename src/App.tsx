@@ -3,6 +3,7 @@ import type { TabType } from './types'
 import { useTerms } from './hooks/useTerms'
 import { useProgress } from './hooks/useProgress'
 import { TabNavigation } from './components/TabNavigation'
+import { WordListPage } from './pages/WordListPage'
 import styles from './App.module.css'
 
 export default function App() {
@@ -17,7 +18,9 @@ export default function App() {
   return (
     <div className={styles.app}>
       <main className={styles.main}>
-        {activeTab === 'list' && <div>一覧（Task 9で実装）</div>}
+        {activeTab === 'list' && (
+          <WordListPage terms={terms} categories={categories} progress={progress} />
+        )}
         {activeTab === 'quiz' && <div>出題（Task 10-12で実装）</div>}
         {activeTab === 'progress' && <div>進捗（Task 13で実装）</div>}
       </main>
