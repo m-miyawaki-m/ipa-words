@@ -2,6 +2,14 @@
 
 Java/jQueryエンジニアがReact + TypeScript + PWA開発を理解・保守するための技術ドキュメント集。
 
+## Java 学び直し
+
+| # | ファイル | 内容 | 対象レベル |
+|---|---------|------|-----------|
+| 15 | [Java基礎 — 言語基礎編](15-java-fundamentals.md) | 基本文法、OOP、ジェネリクス、コレクション、例外処理 | 入門 |
+| 16 | [Java基礎 — モダンJava編](16-java-modern-features.md) | ラムダ、Stream API、Record、Sealed Class、パターンマッチング | 入門〜中級 |
+| 17 | [Java基礎 — 実践・設計編](17-java-practical.md) | SOLID、デザインパターン、JUnit 5、Spring Boot、並行処理 | 中級 |
+
 ## 概念・パラダイム比較
 
 | # | ファイル | 内容 | 対象レベル |
@@ -17,6 +25,14 @@ Java/jQueryエンジニアがReact + TypeScript + PWA開発を理解・保守す
 | 13 | [TypeScript 詳細文法ガイド](13-typescript-deep-dive.md) | 型システム、ジェネリクス、非同期処理等の網羅的解説 | 入門〜中級 |
 | 14 | [React 詳細ガイド](14-react-deep-dive.md) | 思想、Hooks、状態管理、パフォーマンス最適化 | 入門〜中級 |
 | 03 | [React基礎ガイド](03-react-basics.md) | コンポーネント、JSX、Hooks概要 | 入門 |
+
+## Kotlin移行ガイド
+
+| # | ファイル | 内容 | 対象レベル |
+|---|---------|------|-----------|
+| 18 | [Kotlin移行ガイド — 言語基礎編](18-kotlin-fundamentals.md) | 変数、関数、null安全、クラス、コレクション等のJava対比 | 入門 |
+| 19 | [Kotlin移行ガイド — 応用編](19-kotlin-advanced.md) | ラムダ、コルーチン、DSL、ジェネリクス、Java相互運用 | 入門〜中級 |
+| 20 | [Kotlin移行ガイド — Android開発実践編](20-kotlin-android.md) | Jetpack Compose、MVVM、Room、本プロジェクトのKotlin実装例 | 中級 |
 
 ## プラットフォーム・技術選定
 
@@ -60,3 +76,14 @@ Java/jQueryエンジニアがReact + TypeScript + PWA開発を理解・保守す
 1. 04（プラットフォーム比較）
 2. 05（PWA詳解）
 3. 06（Kotlinとの比較）
+
+### Javaを学び直す場合
+1. 15（言語基礎編 — 基本文法とOOPの復習）
+2. 16（モダンJava編 — Java 8〜21の新機能）
+3. 17（実践・設計編 — SOLID、デザインパターン、Spring Boot）
+
+### Kotlinを学ぶ場合
+1. 15 → 16（まずJavaの基礎を固める）
+2. 18（言語基礎編 — Java対比で基本文法を学ぶ）
+3. 19（応用編 — ラムダ、コルーチン、DSL等）
+4. 20（Android開発実践編 — Compose、アーキテクチャ、本プロジェクトの実装例）
