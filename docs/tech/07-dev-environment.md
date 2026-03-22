@@ -2,13 +2,43 @@
 
 ## IDEの選択: VSCode vs Android Studio vs IntelliJ
 
-| IDE | 得意領域 | React/PWA開発 |
-|---|---|---|
-| **IntelliJ IDEA** | Java/Kotlin、Spring | プラグインで可能だが重い |
-| **Android Studio** | Androidアプリ | 不向き（Android専用） |
-| **VSCode** | JavaScript/TypeScript、Web全般 | 最適 |
+| IDE | 得意領域 | React/PWA開発 | Kotlin開発 | Java開発 |
+|---|---|---|---|---|
+| **VSCode** | JavaScript/TypeScript、Web全般 | **最適** | △ 限定的 | △ 限定的 |
+| **IntelliJ IDEA** | Java/Kotlin、Spring | プラグインで可能だが重い | **最適**（サーバーサイド） | **最適** |
+| **Android Studio** | Androidアプリ | 不向き | **最適**（Android） | ○ 可能 |
 
-**VSCodeを推奨する理由:**
+### 技術別の推奨IDE
+
+| ユースケース | 推奨IDE | 理由 |
+|------------|---------|------|
+| React / TypeScript / PWA | **VSCode** | 拡張機能エコシステムが最大、起動が速い |
+| Kotlin + Android アプリ | **Android Studio 一択** | Compose プレビュー、エミュレータ管理、Layout Inspector が必須 |
+| Kotlin + サーバーサイド (Ktor, Spring) | IntelliJ IDEA または VSCode | IntelliJ が最適だが VSCode でも開発可能 |
+| Kotlin スクリプト / CLI | VSCode で十分 | シンタックスハイライトと補完があれば事足りる |
+| Kotlin Multiplatform (KMP) | IntelliJ IDEA | マルチプラットフォーム設定の支援が充実 |
+| Java + Spring Boot | IntelliJ IDEA | リファクタリング、デバッグ、Spring 統合が強力 |
+
+### VSCode で Kotlin 開発する場合
+
+VSCode でも Kotlin は書けるが、Android 開発には不向き。
+
+**できること:**
+- 「Kotlin Language」拡張機能でシンタックスハイライト・基本補完
+- Gradle タスクの実行（`./gradlew build` 等）
+- デバッガ接続（Kotlin Debug Adapter）
+- サーバーサイド Kotlin（Ktor, Spring Boot）の開発
+
+**できない・厳しいこと:**
+- Jetpack Compose のライブプレビュー（Android Studio 専用機能）
+- Android エミュレータの統合管理
+- Layout Inspector / Profiler 等の Android 専用ツール
+- Gradle 同期が Android Studio ほどスムーズでない
+- マルチモジュール Android プロジェクトの依存関係解決
+
+**結論:** Android 開発なら Android Studio を使うべき。Compose のライブプレビューだけでも生産性が段違い。サーバーサイド Kotlin なら VSCode でも十分実用的。
+
+### VSCode を推奨する理由（React/PWA開発）
 
 - 起動が速い。IntelliJのような「プロジェクトインデックス構築中...」の待ち時間がない
 - TypeScript/JavaScript向けの拡張機能エコシステムが最大

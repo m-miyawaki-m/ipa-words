@@ -2084,6 +2084,9 @@ class WordListScreenTest {
 | **IDE** | VSCode（軽量） | Android Studio（重量級） |
 | **メモリ使用** | VSCode ~500MB | Android Studio ~2-4GB |
 
+> **VSCode で Android/Kotlin 開発はできる？**
+> 「Kotlin Language」拡張機能でシンタックスハイライトや基本補完は動くが、**Compose プレビュー、エミュレータ統合管理、Layout Inspector 等の Android 専用ツールが使えない**ため、Android アプリ開発には Android Studio が事実上必須。サーバーサイド Kotlin（Ktor, Spring Boot）や CLI ツールなら VSCode でも十分実用的。詳細は [07-dev-environment.md](07-dev-environment.md) を参照。
+
 ### 5.4 テスト戦略の違い
 
 | テスト種類 | React/PWA | Android/Kotlin |
