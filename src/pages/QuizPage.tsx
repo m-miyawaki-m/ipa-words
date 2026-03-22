@@ -2,7 +2,6 @@ import { useState } from 'react'
 import type {
   Term,
   Category,
-  QuizSettings,
   QuizDirection,
   QuizFormat,
   QuizCount,
