@@ -5,6 +5,7 @@ import { useProgress } from './hooks/useProgress'
 import { TabNavigation } from './components/TabNavigation'
 import { WordListPage } from './pages/WordListPage'
 import { QuizPage } from './pages/QuizPage'
+import { ProgressPage } from './pages/ProgressPage'
 import styles from './App.module.css'
 
 export default function App() {
@@ -29,7 +30,14 @@ export default function App() {
             onRecordAnswer={recordAnswer}
           />
         )}
-        {activeTab === 'progress' && <div>進捗（Task 13で実装）</div>}
+        {activeTab === 'progress' && (
+          <ProgressPage
+            terms={terms}
+            categories={categories}
+            progress={progress}
+            onReset={resetProgress}
+          />
+        )}
       </main>
       <TabNavigation activeTab={activeTab} onTabChange={setActiveTab} />
     </div>
